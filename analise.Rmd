@@ -1,0 +1,1344 @@
+---
+title: "processo seletivo"
+author: "Clevia"
+date: "2022-11-12"
+output: html_document
+---
+
+# entrada dos dados 
+
+```{r message=FALSE, warning=FALSE}
+library(readxl)
+diesel <- read_excel("/Users/Clevia/Documents/4inteligence/dados_desafiodatascientistintern_vendas_distribuidoras_anp.xlsx", sheet = 1)
+
+gasolina <- read_excel("/Users/Clevia/Documents/4inteligence/dados_desafiodatascientistintern_vendas_distribuidoras_anp.xlsx", sheet = 2)
+
+etanol <- read_excel("/Users/Clevia/Documents/4inteligence/dados_desafiodatascientistintern_vendas_distribuidoras_anp.xlsx", sheet = 3)
+
+```
+
+# Diesel
+
+```{r message=FALSE, warning=FALSE}
+require(dplyr)
+require(tidyverse)
+
+df0 <- diesel%>% filter(regiao=="df")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+df_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+
+
+```
+```{r message=FALSE, warning=FALSE}
+require(lubridate)
+ano <- seq.Date(from = as_date("2000-01-01"),
+         to = as_date("2020-12-01"),
+         by = "1 month")
+
+df_total<- cbind(df_total,ano)
+
+```
+
+
+```{r}
+df0 <- diesel%>% filter(regiao=="go")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+go_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+go_total<- cbind(go_total,ano)
+
+```
+
+```{r}
+df0 <- diesel%>% filter(regiao=="ma")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+ma_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+ma_total<- cbind(ma_total,ano)
+```
+
+```{r}
+df0 <- diesel%>% filter(regiao=="mt")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+mt_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+mt_total<- cbind(mt_total,ano)
+
+```
+```{r}
+df0 <- diesel%>% filter(regiao=="mg")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+mg_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+mg_total<- cbind(mg_total,ano)
+
+```
+```{r}
+df0 <- diesel%>% filter(regiao=="pa")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+pa_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+pa_total<- cbind(pa_total,ano)
+
+```
+
+```{r}
+df0 <- diesel%>% filter(regiao=="sp")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+sp_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+sp_total<- cbind(sp_total,ano)
+
+```
+
+```{r}
+df0 <- diesel%>% filter(regiao=="to")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+to_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+to_total<- cbind(to_total,ano)
+
+```
+
+```{r}
+df0 <- diesel%>% filter(regiao=="br")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+br_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+br_total<- cbind(br_total,ano)
+
+```
+
+## Distrito Federal
+```{r message=FALSE, warning=FALSE}
+library(TTR)
+library(forecast)
+```
+```{r}
+df_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#be96b1", color = "#331228")+
+  labs(x = "Anos", y = " metros cúbicos de diesel vendidos no df")
+
+```
+```{r}
+df_serie <- ts(df_total[,3], start=2000, freq=12)
+
+autoplot(decompose(df_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+
+
+É possível observar que o consumo de diesel no Distrito Federal ao longo dos anos, no inicio de cada ano/ final do ano anterior, possui uma queda, caracterizando assim um período sazonal. Entre os anos de 2010 e 2015 houve uma tendência de crescimento porém a partir de 2016 há uma tendência de queda no consumo.
+
+## Goiaz 
+
+```{r}
+go_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#be96b1", color = "#331228")+
+  labs(x = "Anos", y = " metros cúbicos de diesel vendidos em go")
+
+```
+```{r}
+go_serie <- ts(go_total[,3], start=2000, freq=12)
+
+autoplot(decompose(go_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+
+Podemos observar que em Goiaz durante os anos há uma queda sazonal do consumo de diesel no início de cada ano. Por volta do ano de 2007 o consumo de Diesel no estado vem seguindo uma tendência de crecimento que foi mais intenso no período de 2012 a 2015.
+
+## Maranhão
+
+```{r}
+ma_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#be96b1", color = "#331228")+
+  labs(x = "Anos", y = " metros cúbicos de diesel vendidos no ma")
+
+```
+```{r}
+ma_serie <- ts(ma_total[,3], start=2000, freq=12)
+
+autoplot(decompose(ma_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+
+No Maranhão observamos uma queda no consumo de Diesel no início de cada ano e logo a após grande alta no consumo ao longo de cada ano. Vemos ainda que apartir de 2007 há uma tendência de crescimento no consumo do diesel.
+
+## Mato Grosso
+
+```{r}
+mt_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#be96b1", color = "#331228")+
+  labs(x = "Anos", y = " metros cúbicos de diesel vendidos no mt")
+
+```
+```{r}
+mt_serie <- ts(mt_total[,3], start=2000, freq=12)
+
+autoplot(decompose(mt_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+Em Mato Grosso vemos queda no consumo de diesel no início do ano e no início de segundo trimestre de forma sazonal. Por volta de 2006 é possível observar uma tendência de crescimento
+
+## Minas Gerais
+
+```{r}
+mg_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#be96b1", color = "#331228")+
+  labs(x = "Anos", y = " metros cúbicos de diesel vendidos no mg")
+
+```
+```{r}
+mg_serie <- ts(mg_total[,3], start=2000, freq=12)
+
+autoplot(decompose(mg_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+
+Em Minas vemos o comportamento sazonal de queda no consumo de diesel no início de cada ano. Vemos também uma tendencia de crecimento no consumo.
+
+## Pará
+
+```{r}
+pa_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#be96b1", color = "#331228")+
+  labs(x = "Anos", y = " metros cúbicos de diesel vendidos no pa")
+
+```
+```{r}
+pa_serie <- ts(pa_total[,3], start=2000, freq=12)
+
+autoplot(decompose(pa_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+
+## São Paulo 
+
+
+```{r}
+sp_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#be96b1", color = "#331228")+
+  labs(x = "Anos", y = " metros cúbicos de diesel vendidos no sp")
+
+```
+```{r}
+sp_serie <- ts(sp_total[,3], start=2000, freq=12)
+
+autoplot(decompose(sp_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+
+## Tocantins
+
+```{r}
+to_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#be96b1", color = "#331228")+
+  labs(x = "Anos", y = " metros cúbicos de diesel vendidos no to")
+
+```
+```{r}
+to_serie <- ts(to_total[,3], start=2000, freq=12)
+
+autoplot(decompose(to_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+
+## Brasilia
+
+```{r}
+br_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#be96b1", color = "#331228")+
+  labs(x = "Anos", y = " metros cúbicos de diesel vendidos em br")
+
+```
+```{r}
+br_serie <- ts(br_total[,3], start=2000, freq=12)
+
+autoplot(decompose(br_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+### Considerações gerais para o consumo de Diesel 
+
+Foi possível observar que todos os estados analisados possuem queda no consumo do Diesel no início de cada ano, o que pode ser associado ao período de férias e festas de fim de ano. Vemos ainda que a partir do ano de 2005 os estados vêm seguindo uma tendência no crescimento do consumo do Diesel.
+
+# Gasolina 
+
+```{r message=FALSE, warning=FALSE}
+
+df0 <- gasolina%>% filter(regiao=="df")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+df_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+
+
+```
+```{r message=FALSE, warning=FALSE}
+require(lubridate)
+ano <- seq.Date(from = as_date("2000-01-01"),
+         to = as_date("2020-12-01"),
+         by = "1 month")
+
+df_total<- cbind(df_total,ano)
+
+```
+
+
+```{r}
+df0 <- gasolina%>% filter(regiao=="go")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+go_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+go_total<- cbind(go_total,ano)
+
+```
+
+```{r}
+df0 <- gasolina%>% filter(regiao=="ma")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+ma_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+ma_total<- cbind(ma_total,ano)
+```
+
+```{r}
+df0 <- gasolina%>% filter(regiao=="mt")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+mt_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+mt_total<- cbind(mt_total,ano)
+
+```
+```{r}
+df0 <- gasolina%>% filter(regiao=="mg")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+mg_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+mg_total<- cbind(mg_total,ano)
+
+```
+```{r}
+df0 <- gasolina%>% filter(regiao=="pa")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+pa_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+pa_total<- cbind(pa_total,ano)
+
+```
+
+```{r}
+df0 <- gasolina%>% filter(regiao=="sp")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+sp_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+sp_total<- cbind(sp_total,ano)
+
+```
+
+```{r}
+df0 <- gasolina%>% filter(regiao=="to")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+to_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+to_total<- cbind(to_total,ano)
+
+```
+
+```{r}
+df0 <- gasolina%>% filter(regiao=="br")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+br_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+br_total<- cbind(br_total,ano)
+
+```
+
+
+## Distrito Federal 
+
+
+```{r}
+df_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#c2efaa", color = "#4f8533")+
+  labs(x = "Anos", y = " metros cúbicos de gasolina vendidos no df")
+
+```
+```{r}
+df_serie <- ts(df_total[,3], start=2000, freq=12)
+
+autoplot(decompose(df_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+
+
+## Goiaz 
+
+
+```{r}
+go_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#c2efaa", color = "#4f8533")+
+  labs(x = "Anos", y = " metros cúbicos de gasolina vendidos em go")
+
+```
+```{r}
+go_serie <- ts(go_total[,3], start=2000, freq=12)
+
+autoplot(decompose(go_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+``` 
+
+## Maranhão 
+
+
+```{r}
+ma_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#c2efaa", color = "#4f8533")+
+  labs(x = "Anos", y = " metros cúbicos de gasolina vendidos no ma")
+
+```
+```{r}
+ma_serie <- ts(ma_total[,3], start=2000, freq=12)
+
+autoplot(decompose(ma_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+``` 
+
+## Mato Grosso
+
+
+```{r}
+mt_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#c2efaa", color = "#4f8533")+
+  labs(x = "Anos", y = " metros cúbicos de gasolina vendidos no mt")
+
+```
+```{r}
+mt_serie <- ts(mt_total[,3], start=2000, freq=12)
+
+autoplot(decompose(mt_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+``` 
+
+## Minas Gerais
+
+
+```{r}
+mg_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#c2efaa", color = "#4f8533")+
+  labs(x = "Anos", y = " metros cúbicos de gasolina vendidos no mg")
+
+```
+```{r}
+mg_serie <- ts(mg_total[,3], start=2000, freq=12)
+
+autoplot(decompose(mg_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+``` 
+
+## Pará
+
+
+```{r}
+pa_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#c2efaa", color = "#4f8533")+
+  labs(x = "Anos", y = " metros cúbicos de gasolina vendidos no pa")
+
+```
+```{r}
+pa_serie <- ts(pa_total[,3], start=2000, freq=12)
+
+autoplot(decompose(pa_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+``` 
+
+## São Paulo
+
+
+```{r}
+sp_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#c2efaa", color = "#4f8533")+
+  labs(x = "Anos", y = " metros cúbicos de gasolina vendidos no sp")
+
+```
+```{r}
+sp_serie <- ts(sp_total[,3], start=2000, freq=12)
+
+autoplot(decompose(sp_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+``` 
+
+## Tocantins
+
+
+```{r}
+to_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#c2efaa", color = "#4f8533")+
+  labs(x = "Anos", y = " metros cúbicos de gasolina vendidos no to")
+
+```
+```{r}
+to_serie <- ts(to_total[,3], start=2000, freq=12)
+
+autoplot(decompose(to_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+
+## Brasilia 
+
+```{r}
+br_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#c2efaa", color = "#4f8533")+
+  labs(x = "Anos", y = " metros cúbicos de gasolina vendidos em br")
+
+```
+```{r}
+br_serie <- ts(br_total[,3], start=2000, freq=12)
+
+autoplot(decompose(br_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+``` 
+
+### Considerações gerais para o consumo da gasolina nos estados analisados 
+
+
+Foi possível observar um elevado consumo de gasolina em todos os estados por volta do ultimo trimestre do ano,no estado do Tocantins além do consumo alto de gasolina no ultimo trimestre a um pico de consumo no final do primeiro semestre no ano. Todos os estados em estudo possuem tendencia de crecimento com excessão do estado de São Paulo que a partir no ano de 2018 possui tendência de queda.
+
+# Etanol 
+
+```{r message=FALSE, warning=FALSE}
+
+df0 <- etanol%>% filter(regiao=="df")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+df_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+
+
+```
+```{r message=FALSE, warning=FALSE}
+require(lubridate)
+ano <- seq.Date(from = as_date("2000-01-01"),
+         to = as_date("2020-12-01"),
+         by = "1 month")
+
+df_total<- cbind(df_total,ano)
+
+```
+
+
+```{r}
+df0 <- etanol%>% filter(regiao=="go")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+go_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+go_total<- cbind(go_total,ano)
+
+```
+
+```{r}
+df0 <- etanol%>% filter(regiao=="ma")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+ma_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+ma_total<- cbind(ma_total,ano)
+```
+
+```{r}
+df0 <- etanol%>% filter(regiao=="mt")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+mt_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+mt_total<- cbind(mt_total,ano)
+
+```
+```{r}
+df0 <- etanol%>% filter(regiao=="mg")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+mg_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+mg_total<- cbind(mg_total,ano)
+
+```
+```{r}
+df0 <- etanol%>% filter(regiao=="pa")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+pa_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+pa_total<- cbind(pa_total,ano)
+
+```
+
+```{r}
+df0 <- etanol%>% filter(regiao=="sp")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+sp_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+sp_total<- cbind(sp_total,ano)
+
+```
+
+```{r}
+df0 <- etanol%>% filter(regiao=="to")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+to_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+to_total<- cbind(to_total,ano)
+
+```
+
+```{r}
+df0 <- etanol%>% filter(regiao=="br")
+
+df00 <- df0[,c(1,2,3)] %>% rename(m3diesel = "2000" )
+df1 <- df0[,c(1,2,4)]  %>% rename(m3diesel = "2001" )
+df2 <- df0[,c(1,2,5)]  %>% rename(m3diesel = "2002" )
+df3 <- df0[,c(1,2,6)]  %>% rename(m3diesel = "2003" )
+df4 <- df0[,c(1,2,7)]  %>% rename(m3diesel = "2004" )
+df5 <- df0[,c(1,2,8)]  %>% rename(m3diesel = "2005" )
+df6 <- df0[,c(1,2,9)]  %>% rename(m3diesel = "2006" )
+df7 <- df0[,c(1,2,10)]  %>% rename(m3diesel = "2007" )
+df8 <- df0[,c(1,2,11)]  %>% rename(m3diesel = "2008" )
+df9 <- df0[,c(1,2,12)]  %>% rename(m3diesel = "2009" )
+df10 <- df0[,c(1,2,13)]  %>% rename(m3diesel = "2010" )
+df11 <- df0[,c(1,2,14)]  %>% rename(m3diesel = "2011" )
+df12 <- df0[,c(1,2,15)]  %>% rename(m3diesel = "2012" )
+df13 <- df0[,c(1,2,16)]  %>% rename(m3diesel = "2013" )
+df14 <- df0[,c(1,2,17)]  %>% rename(m3diesel = "2014" )
+df15 <- df0[,c(1,2,18)]  %>% rename(m3diesel = "2015" )
+df16 <- df0[,c(1,2,19)]  %>% rename(m3diesel = "2016" )
+df17 <- df0[,c(1,2,20)]  %>% rename(m3diesel = "2017" )
+df18 <- df0[,c(1,2,21)]  %>% rename(m3diesel = "2018" )
+df19 <- df0[,c(1,2,22)]  %>% rename(m3diesel = "2019" )
+df20 <- df0[,c(1,2,23)]  %>% rename(m3diesel = "2020" )
+
+br_total <- bind_rows(df00,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16,df17,df18,df19,df20)
+br_total<- cbind(br_total,ano)
+
+```
+
+## Distrito Federal 
+
+```{r}
+df_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#fdffae", color = "#ed8476")+
+  labs(x = "Anos", y = " metros cúbicos de etanol vendidos no df")
+
+```
+```{r}
+df_serie <- ts(df_total[,3], start=2000, freq=12)
+
+autoplot(decompose(df_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+
+## Goiaz 
+
+
+```{r}
+go_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#fdffae", color = "#ed8476")+
+  labs(x = "Anos", y = " metros cúbicos de etanol vendidos em go")
+
+```
+```{r}
+go_serie <- ts(go_total[,3], start=2000, freq=12)
+
+autoplot(decompose(go_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+
+## Maranhão 
+
+
+```{r}
+ma_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#fdffae", color = "#ed8476")+
+  labs(x = "Anos", y = " metros cúbicos de etanol vendidos no ma")
+
+```
+```{r}
+ma_serie <- ts(ma_total[,3], start=2000, freq=12)
+
+autoplot(decompose(ma_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+``` 
+
+## Mato Grosso 
+
+```{r}
+mt_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#fdffae", color = "#ed8476")+
+  labs(x = "Anos", y = " metros cúbicos de etanol vendidos no mt")
+
+```
+```{r}
+mt_serie <- ts(mt_total[,3], start=2000, freq=12)
+
+autoplot(decompose(mt_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+``` 
+
+## Minas Gerais 
+
+
+```{r}
+mg_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#fdffae", color = "#ed8476")+
+  labs(x = "Anos", y = " metros cúbicos de etanol vendidos no mg")
+
+```
+```{r}
+mg_serie <- ts(mg_total[,3], start=2000, freq=12)
+
+autoplot(decompose(mg_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+``` 
+
+## Pará
+
+
+```{r}
+pa_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#fdffae", color = "#ed8476")+
+  labs(x = "Anos", y = " metros cúbicos de etanol vendidos no pa")
+
+```
+```{r}
+pa_serie <- ts(pa_total[,3], start=2000, freq=12)
+
+autoplot(decompose(pa_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+``` 
+
+## São Paulo 
+
+
+```{r}
+sp_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#fdffae", color = "#ed8476")+
+  labs(x = "Anos", y = " metros cúbicos de etanol vendidos no sp")
+
+```
+```{r}
+sp_serie <- ts(sp_total[,3], start=2000, freq=12)
+
+autoplot(decompose(sp_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+``` 
+
+## Tocantins 
+
+
+```{r}
+to_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#fdffae", color = "#ed8476")+
+  labs(x = "Anos", y = " metros cúbicos de etanol vendidos no to")
+
+```
+```{r}
+to_serie <- ts(to_total[,3], start=2000, freq=12)
+
+autoplot(decompose(to_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+
+## Brasilia 
+
+```{r}
+br_total %>% 
+  ggplot()+
+  geom_area(aes(x = ano, y = m3diesel), fill = "#fdffae", color = "#ed8476")+
+  labs(x = "Anos", y = " metros cúbicos de etanol vendidos em br")
+
+```
+
+```{r}
+br_serie <- ts(br_total[,3], start=2000, freq=12)
+
+autoplot(decompose(br_serie,"additive")) + labs(title = "Descomposição da série
+temporal", subtitle = "(dados) (Tendência) (Sazonalidade) (Resíduo)")
+```
+### Considerações gerais para o consumo do Etanol 
+
+Como observamos nos gráficos todos os estados em estudo possuem um pico de consumo no etanol por volta do ano de 2009 e outro pico de consumo por volta de 2019. Com excessão do estado do mato grosso que possuei tendência de crescimento gradativo.
+
+
+
+
+
+
+
+
+
+
